@@ -1,15 +1,15 @@
 .PHONY: clean
 
 out: calc case_all
-	case_all > gcc calc > out
+	case_all > gcc -o out calc 
 case_add: casegen.c
-	gcc casegen.c add 100 > case_add
+	gcc -o case_add casegen.c add 100
 case_sub: casegen.c
-	gcc casegen.c sub 100 > case_sub
+	gcc -o case_sub casegen.c sub 100
 case_mul: casegen.c
-	gcc casegen.c mul 100 > case_mul
+	gcc -o case_mul casegen.c mul 100 
 case_div: casegen.c
-	gcc casegen.c div 100 > case_div
+	gcc -o case_div casegen.c div 100
 case_all: case_add case_sub case_mul case_div
 	cat case_add case_sub case_mul case_div > case_all
 clean:
