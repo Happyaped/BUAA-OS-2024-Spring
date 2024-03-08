@@ -1,8 +1,10 @@
 #include <blib.h>
 
 size_t strlen(const char *s) {
-    const char *str;
-    for(str = s;*str != '\0';str++);
+    const char *str=s;
+    while(*str != '\0'){
+	str++;
+	    }
     return (str-s);
 }
 
@@ -65,12 +67,11 @@ char *strncat(char *dst, const char *src, size_t n){
     while(*d != '\0'){
 	d++;
 	    }
-    int i = 0;
-    while(*s != '\0'&& i<n){
+    while(*s != '\0'&& n>0){
 	*d = *s;
 	d++;
 	s++;
-	i++;
+	n--;
 	    }
 	*d = '\0';
 	return dst;	    	    
@@ -89,20 +90,29 @@ char *strchr(const char *str, int character){
 
 char* strsep(char** stringp, const char* delim){
     char *start = *stringp;
-    char *end;
-
+    char *end=NULL;
+    char *tem=NULL;
     if(start == NULL){
 	    return NULL;
 	    }
-    end = strchr(start,*delim);
-
-    if(end){
-	*end = '\0';
-	*stringp = end + 1;
-	    }else{
+    while(*delim != '\0'){
+	tem = strchr(start,*delim);
+	if(tem != NULL && end == NULL){
+	end = tem;
+		}
+	else if(tem != NULL && end !=NULL&&tem<end){
+	end = tem;
+		}
+	delim++;			
+	    }
+	if(end == NULL){
 	*stringp = NULL;
-		    }
-	return start;		    	    
+		}else{
+	*end = '\0';
+	*stringp = end+1;
+			}
+	return start;
+   		    	    
 }
 
 
