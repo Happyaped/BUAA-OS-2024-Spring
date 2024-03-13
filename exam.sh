@@ -17,4 +17,4 @@ gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code
 ./hello 2> err.txt
 mv err.txt ..
 cd ..
-chmod -rw-r-xr-x err.txt 
+chmod 655 err.txt 
