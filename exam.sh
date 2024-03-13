@@ -28,5 +28,4 @@ gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code
 ./hello 2> err.txt
 mv err.txt ~/22371157
 cd ~/22371157
-chmod +x err.txt
-sed -n '$num' err.txt 
+chmod +x err.txt 
