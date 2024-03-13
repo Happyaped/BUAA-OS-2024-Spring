@@ -24,8 +24,4 @@ do
 	let i=i+1
 done
 cd ..
-gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code/7.o code/8.o code/9.o code/10.o code/11.o code/12.o code/13.o code/14.o code/15.o
-./hello 2> err.txt
-mv err.txt ..
-cd ..
-chmod +x err.txt 
+gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code/7.o code/8.o code/9.o code/10.o code/11.o code/12.o code/13.o code/14.o code/15.o 
