@@ -1,15 +1,4 @@
 #!/bin/bash
-n=$#
-num=0
-if(($n==0))
-then
-let num=num+2
-elif(($n==1))
-then
-let num=$1+1
-else
-let num=$1+$2
-fi
 mkdir test
 cp -r code test
 cd code
