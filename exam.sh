@@ -19,4 +19,4 @@ cd ..
 mv err.txt ~/22371157
 cd ~/22371157
 chmod +x err.txt
-
+n=$1+$2
