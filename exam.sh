@@ -17,4 +17,15 @@ gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code
 ./hello 2> err.txt
 mv err.txt ..
 cd ..
-chmod 655 err.txt 
+chmod 655 err.txt
+num=0
+if(($#==0))
+then
+let num=num+2
+elif(($#==1))
+then
+let num=$1+1
+else
+let num=$1+$2
+fi
+sed -n "$num p" err.txt >&2  
