@@ -23,9 +23,10 @@ do
 	gcc -c $i.c -o $i.o
 	let i=i+1
 done
-gcc -o hello 0.o 1.o 2.o 3.o 4.o 5.o 6.o 7.o 8.o 9.o 10.o 11.o 12.o 13.o 14.o 15.o
-mv hello ~/22371157/test
 cd ..
+gcc -o hello code/0.o code/1.o code/2.o code/3.o code/4.o code/5.o code/6.o code/7.o code/8.o code/9.o code/10.o code/11.o code/12.o code/13.o code/14.o code/15.o
 ./hello 2> err.txt
 mv err.txt ~/22371157
 cd ~/22371157
+chmod +x err.txt
+sed -n '$num' err.txt 
