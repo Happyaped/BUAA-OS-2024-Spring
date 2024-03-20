@@ -30,7 +30,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 		fmt = tem;
 		/* check "are we hitting the end?" */
 		/* Exercise 1.4: Your code here. (3/8) */
-		if(fmt == '\0'){
+		if(*fmt == '\0'){
 		break;
 			}
 		/* we found a '%' */
@@ -38,7 +38,6 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 		fmt++;
 		/* check format flag */
 		/* Exercise 1.4: Your code here. (5/8) */
-		padc = NULL;
 		ladjust = 0;
 		if(*fmt == '-'){
 		ladjust = 1;
