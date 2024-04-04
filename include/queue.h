@@ -115,11 +115,14 @@
 #define LIST_INSERT_AFTER(listelm, elm, field)                                                     \
 	/* Exercise 2.2: Your code here. */  \
 	do{ \
-		(elm)->field.le_prev = &LIST_NEXT((listelm),field);  \
-		LIST_NEXT((elm),field) = LIST_NEXT((listelm),field);  \
-		LIST_NEXT((listelm),field)->field.le_prev = &LIST_NEXT((elm),field); \
-		LIST_NEXT((listelm),field) = elm; \
-		} while(0)
+		LIST_NEXT((elm), field) = LIST_NEXT((listelm), field);                 \
+		if (LIST_NEXT((listelm), field) != NULL)                               \
+		{                                                                      \
+		LIST_NEXT((listelm), field)->field.le_prev = &LIST_NEXT((elm), field); \
+			}                                                              \
+		LIST_NEXT((listelm), field) = (elm);                                   \
+		(elm)->field.le_prev = &LIST_NEXT((listelm), field);                   \
+		} while(0) 
 /*
  * Insert the element "elm" *before* the element "listelm" which is
  * already in the list.  The "field" name is the link element
