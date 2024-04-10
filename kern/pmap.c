@@ -211,7 +211,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 u_int page_filter(Pde *pgdir, u_long va_lower_limit, u_long va_upper_limit, u_int num){
 	Pde *pde;
 	Pte *pte;
-	Pte *l;
+	Pte *m;
 	u_int sum = 0;
 	u_long i;
 	u_long j;
@@ -222,12 +222,17 @@ u_int page_filter(Pde *pgdir, u_long va_lower_limit, u_long va_upper_limit, u_in
 	if(pte == NULL){
 	continue;
 		}
-	if((*pte&PTE_V)!=0){
-	pp = pa2page(*pte);
+	for(j=0;j<1024;j++){
+	m=pte+j;
+	if((*m&PTE_V)==0){
+	continue;
+		}
+	pp=pa2page(*m);
 	if((pp->pp_ref)>=num){
 	sum++;
 		}
-		}
+		}	
+		
 		}
 	return sum; 
 	}
