@@ -208,7 +208,29 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 
 	return 0;
 }
-
+u_int page_filter(Pde *pgdir, u_long va_lower_limit, u_long va_upper_limit, u_int num){
+	Pde *pde;
+	Pte *pte;
+	Pte *l;
+	u_int sum = 0;
+	u_long i;
+	u_long j;
+	u_long k;
+	struct Page *pp;
+	for(i = va_lower_limit;i<va_upper_limit;i++){
+	pgdir_walk(pgdir,i,0,&pte);
+	if(pte == NULL){
+	continue;
+		}
+	if((*pte&PTE_V)!=0){
+	pp = pa2page(*pte);
+	if((pp->pp_ref)>=num){
+	sum++;
+		}
+		}
+		}
+	return sum; 
+	}
 /* Overview:
  *   Map the physical page 'pp' at virtual address 'va'. The permission (the low 12 bits) of the
  *   page table entry should be set to 'perm | PTE_C_CACHEABLE | PTE_V'.
