@@ -222,11 +222,13 @@ u_int page_filter(Pde *pgdir, u_long va_lower_limit, u_long va_upper_limit, u_in
 	if(pte == NULL){
 	continue;
 		}
-	for(j=0;j<1024;j++){
-	m=pte+j;
-	if((*m&PTE_V)==0){
+	if((*pte&PTE_V)==0){
 	continue;
 		}
+		
+	for(j=PTX(i);j<1024;j++){
+		
+	m=pte+j;
 	pp=pa2page(*m);
 	if((pp->pp_ref)>=num){
 	sum++;
