@@ -246,6 +246,7 @@ int env_alloc(struct Env **new, u_int parent_id) {
 	 *   Use 'asid_alloc' to allocate a free asid.
 	 *   Use 'mkenvid' to allocate a free envid.
 	 */
+	e->env_count = 0;
 	e->env_sum = 0;
 	e->env_user_tlb_mod_entry = 0; // for lab4
 	e->env_runs = 0;	       // for lab6
@@ -566,10 +567,8 @@ void envid2env_check() {
 	printk("envid2env() work well!\n");
 }
 void env_stat(struct Env *e, u_int *pri, u_int *scheds, u_int *runs, u_int *clocks){
-	static int sumCount = 0;
-	sumCount =sumCount + ((struct Trapframe *)KSTACKTOP - 1)->cp0_count;
 	*pri = e->env_pri;
 	*scheds = e->env_sum;
 	*runs = e->env_runs;
-	*clocks = sumCount;
+	*clocks = e->env_count;
 	}
