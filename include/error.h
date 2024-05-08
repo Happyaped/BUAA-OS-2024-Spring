@@ -5,7 +5,7 @@
 
 // Unspecified or unknown problem
 #define E_UNSPECIFIED 1
-
+#define E_SEM_NOT_OPEN 14
 // Environment doesn't exist or otherwise cannot be used in requested action
 #define E_BAD_ENV 2
 
