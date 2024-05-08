@@ -15,7 +15,9 @@ int sem_wait(int sem_id) {
 	r = syscall_sem_wait(sem_id);
 	if(r == 1){
 	syscall_yield();
-	r = 0;
+	while(r == 1){
+	r = syscall_sem_wait(sem_id);
+		}
 		}
 	return r;
 }
