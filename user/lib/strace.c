@@ -34,8 +34,7 @@ void strace_recv() {
 	// Your code here. (2/2)
 	while(1){
 	u_int child_env_id;
-	u_int temPerm;
-	u_int temValue = ipc_recv(&child_env_id,0,&temPerm);
+	u_int temValue = ipc_recv(&child_env_id,0,0);
 		
 	strace_barrier(child_env_id);
 	recv_sysno(child_env_id, temValue);
