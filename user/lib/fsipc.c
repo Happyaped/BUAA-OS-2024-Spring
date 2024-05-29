@@ -28,7 +28,7 @@ static int fsipc(u_int type, void *fsreq, void *dstva, u_int *perm) {
 
 int fsipc_copy(const char *src_path, const char *dst_path) {
    // Lab 5-2-Exam: Your code here. (1/6)
-	if(src_path == NULL || strlen(src_path) >= MAXPATHLEN || dst_path == NULL || strlen(dst_path) >= MAXPATHLEN){
+	if(*src_path == NULL || strlen(src_path) >= MAXPATHLEN || *dst_path == NULL || strlen(dst_path) >= MAXPATHLEN){
 	return -E_BAD_PATH;
 		}
 	struct Fsreq_copy *req;
