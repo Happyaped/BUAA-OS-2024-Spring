@@ -112,7 +112,7 @@ int parsecmd(char **argv, int *rightpipe) {
 			// utilize 'debugf' to print relevant messages,
 			// and subsequently terminate the process using 'exit'.
 			/* Exercise 6.5: Your code here. (2/3) */
-			fd = open(t, O_WRONLY);
+			fd = open(t, O_WRONLY | O_CREAT | O_TRUNC);
 			if(fd < 0){
 			exit();
 				}
