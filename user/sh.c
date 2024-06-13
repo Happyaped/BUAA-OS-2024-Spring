@@ -33,10 +33,10 @@ int _gettoken(char *s, char **p1, char **p2) {
 		return 0;
 	}
 	
-	if (*s == '"') {
+	if (*s == '\"') {
 	s++;
 	*p1 = s;
-	while (*s && *s != '"'){
+	while (*s && *s != '\"'){
 	s++;
 		}
 	*s = 0;
