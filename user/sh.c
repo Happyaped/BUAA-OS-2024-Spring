@@ -32,6 +32,18 @@ int _gettoken(char *s, char **p1, char **p2) {
 	if (*s == 0) {
 		return 0;
 	}
+	
+	if (*s == '"') {
+	s++;
+	*p1 = s;
+	while (*s && *s != '"'){
+	s++;
+		}
+	*s = 0;
+	s++;
+	*p2 = s;
+	return 'w';
+		}
 
 	if (strchr(SYMBOLS, *s)) {
 		int t = *s;
@@ -122,6 +134,29 @@ int parsecmd(char **argv, int *rightpipe) {
 			//user_panic("> redirection not implemented");
 
 			break;
+		case ';':
+			if((*rightpipe = fork()) == 0){
+			return argc;
+				}
+			else{
+			debugf("parsed ';', created %x\n", *rightpipe);
+			wait(*rightpipe);
+			close(0);
+			close(1);
+			dup(opencons(), 1);
+			dup(1,0);
+			return parsecmd(argv, rightpipe);
+					}
+		case '&':
+			if((r = fork()) == 0){
+			return argc;
+				}
+			else{
+			dup(opencons(), 1);
+			dup(1,0);
+			debugf("parsed '&', created %x\n", r);
+			return parsecmd(argv, rightpipe);
+				}	
 		case '|':;
 			/*
 			 * First, allocate a pipe.

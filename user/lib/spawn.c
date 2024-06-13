@@ -112,7 +112,24 @@ int spawn(char *prog, char **argv) {
 	// Return the error if 'open' fails.
 	int fd;
 	if ((fd = open(prog, O_RDONLY)) < 0) {
+		char pad[1024];
+		pad[0] = (*(char*)pad);
+		int bfd,len;
+		char bprog[1024];
+		strcpy(bprog,prog);
+		len = strlen(bprog);
+		bprog[len] = '.';
+		bprog[len+1] = 'b';
+		bprog[len+2] = 0;
+		bfd = open(bprog, O_RDONLY);
+		if (bfd >= 0){
+		fd = bfd;
+			}
+		else{
 		return fd;
+			}
+
+		//return fd;
 	}
 
 	// Step 2: Read the ELF header (of type 'Elf32_Ehdr') from the file into 'elfbuf' using
