@@ -114,9 +114,20 @@ int parsecmd(char **argv, int *rightpipe) {
 
 			break;
 		case '>':
-			if (gettoken(0, &t) != 'w') {
+			if ((c = gettoken(0, &t)) != 'w') {
+				if(c == '>'){
+				//debugf("siu");
+				 if ((c = gettoken(0, &t)) != 'w'){
+				debugf("syntax error: >> not followed by word\n");
+				exit();
+					 }
+				//todo
+				debugf("siu\n");	 
+				break;
+					}else{
 				debugf("syntax error: > not followed by word\n");
 				exit();
+					}
 			}
 			// Open 't' for writing, create it if not exist and trunc it if exist, dup
 			// it onto fd 1, and then close the original fd.
