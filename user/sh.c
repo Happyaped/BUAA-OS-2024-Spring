@@ -2,7 +2,7 @@
 #include <lib.h>
 
 #define WHITESPACE " \t\r\n"
-#define SYMBOLS "<|>&;()"
+#define SYMBOLS "<|>&;()#"
 
 /* Overview:
  *   Parse the next token from the string at s.
@@ -121,8 +121,13 @@ int parsecmd(char **argv, int *rightpipe) {
 				debugf("syntax error: >> not followed by word\n");
 				exit();
 					 }
-				//todo
-				debugf("siu\n");	 
+				fd = open(t, O_WRONLY | O_SERD);
+				if(fd < 0){
+				exit(); 
+				}
+				dup(fd,1);
+				close(fd);
+				//debugf("we settle >> in\n");
 				break;
 					}else{
 				debugf("syntax error: > not followed by word\n");
@@ -135,7 +140,8 @@ int parsecmd(char **argv, int *rightpipe) {
 			// utilize 'debugf' to print relevant messages,
 			// and subsequently terminate the process using 'exit'.
 			/* Exercise 6.5: Your code here. (2/3) */
-			fd = open(t, O_WRONLY | O_CREAT | O_TRUNC);
+			//debugf("we didn't settle >> in\n");
+			fd = open(t, O_WRONLY);
 			if(fd < 0){
 			exit();
 				}
@@ -168,6 +174,8 @@ int parsecmd(char **argv, int *rightpipe) {
 			debugf("parsed '&', created %x\n", r);
 			return parsecmd(argv, rightpipe);
 				}	
+		case '#':
+			return argc;
 		case '|':;
 			/*
 			 * First, allocate a pipe.
