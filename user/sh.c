@@ -121,7 +121,7 @@ int parsecmd(char **argv, int *rightpipe) {
 				debugf("syntax error: >> not followed by word\n");
 				exit();
 					 }
-				fd = open(t, O_WRONLY | O_SERD);
+				fd = open(t, O_WRONLY | O_SERD | O_CREAT);
 				if(fd < 0){
 				exit(); 
 				}
