@@ -141,7 +141,7 @@ int parsecmd(char **argv, int *rightpipe) {
 			// and subsequently terminate the process using 'exit'.
 			/* Exercise 6.5: Your code here. (2/3) */
 			//debugf("we didn't settle >> in\n");
-			fd = open(t, O_WRONLY);
+			fd = open(t, O_WRONLY | O_TRUNC | O_CREAT);
 			if(fd < 0){
 			exit();
 				}
