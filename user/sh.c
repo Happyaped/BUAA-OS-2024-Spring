@@ -4,6 +4,7 @@
 #define WHITESPACE " \t\r\n"
 #define SYMBOLS "<|>&;()#`"
 
+
 /* Overview:
  *   Parse the next token from the string at s.
  *
@@ -279,6 +280,13 @@ void readline(char *buf, u_int n) {
 		}
 		if (buf[i] == '\r' || buf[i] == '\n') {
 			buf[i] = 0;
+			 
+			int hisFd;
+			if ((hisFd = open("/.mosh_history", O_SERD | O_WRONLY | O_CREAT)) < 0) { exit(); }
+			if ((r = write(hisFd, buf, i)) != i) { exit(); }
+			if ((r = write(hisFd, "\n", 1)) != 1) { exit(); }
+			if ((r = close(hisFd)) < 0) { exit(); }
+
 			return;
 		}
 	}
