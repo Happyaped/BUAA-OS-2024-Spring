@@ -17,13 +17,16 @@ int mkdir(const char *path){
 	temPath = path;
 	while(*temPath!=0){
 	if(*temPath =='/'){
-	b[i] = 0;
-	open(b,O_CREATE | FTYPE_DIR);
+	b[i] = '\0';
+	strcpy(temMark,b);
+	open(temMark,O_CREATE | FTYPE_DIR);
 	}
 	b[i]=*temPath;
 	i++;
 	temPath++;}
-	open(b,O_CREATE | FTYPE_DIR);
+	b[i] = '\0';
+	strcpy(temMark,b);
+	open(temMark,O_CREATE | FTYPE_DIR);
 			}	
 	}
 int main(int argc, char **argv){
