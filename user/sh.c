@@ -245,6 +245,13 @@ void runcmd(char *s) {
 		return;
 	}
 	argv[argc] = 0;
+	
+	if(strcmp(argv[0],"history") == 0){
+	int tem = open(".mosh_history",O_RDONLY);
+	char a[1024];
+	read(tem,a,1000);
+	printf("%s\n",a);
+		}
 
 	int child = spawn(argv[0], argv);
 	close_all();
