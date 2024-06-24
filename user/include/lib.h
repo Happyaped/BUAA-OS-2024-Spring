@@ -100,6 +100,7 @@ int fsipc_dirty(u_int, u_int);
 int fsipc_remove(const char *);
 int fsipc_sync(void);
 int fsipc_incref(u_int);
+int fsipc_create(const char *, u_int, struct Fd *);
 
 // fd.c
 int close(int fd);
@@ -133,6 +134,7 @@ int sync(void);
 #define O_CREAT 0x0100	 /* create if nonexistent */
 #define O_TRUNC 0x0200	 /* truncate to zero length */
 #define O_SERD 0x0004
+#define O_CREATE 0x1000
 
 // Unimplemented open modes
 #define O_EXCL 0x0400  /* error if already exists */

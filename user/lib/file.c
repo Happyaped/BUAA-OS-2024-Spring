@@ -35,7 +35,17 @@ int open(const char *path, int mode) {
 	try(fd_alloc(&fd));
 	// Step 2: Prepare the 'fd' using 'fsipc_open' in fsipc.c.
 	/* Exercise 5.9: Your code here. (2/5) */
+	//try(fsipc_open(path,mode,fd));
+	if((mode & O_CREATE) != 0){
+	mode = mode & ~O_CREATE;
+	if((r = fsipc_open(path,mode,fd) != 0)){
+	return fsipc_create(path,mode,fd);
+		}
+		}
+	else{
 	try(fsipc_open(path,mode,fd));
+		} 
+
 	// Step 3: Set 'va' to the address of the page where the 'fd''s data is cached, using
 	// 'fd2data'. Set 'size' and 'fileid' correctly with the value in 'fd' as a 'Filefd'.
 	char *va;

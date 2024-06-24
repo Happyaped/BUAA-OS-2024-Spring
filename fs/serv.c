@@ -116,6 +116,19 @@ int open_lookup(u_int envid, u_int fileid, struct Open **po) {
 	*po = o;
 	return 0;
 }
+
+void serve_create(u_int envid, struct Fsreq_create *rq) {
+	    struct File *f;
+	        int r;
+		        if ((r = file_create(rq->req_path, &f)) < 0) {
+				            ipc_send(envid, r, 0, 0);
+					                return;
+							        }
+								    // touch 和 mkdir 的区别仅限于此，所以只需要控制这个值的传递就能实现两个函数
+								        f->f_type = rq->f_type;
+									    ipc_send(envid, 0, 0, 0);
+}
+
 /*
  * Functions with the prefix "serve_" are those who
  * conduct the file system requests from clients.
@@ -347,7 +360,7 @@ void serve_sync(u_int envid) {
 void *serve_table[MAX_FSREQNO] = {
     [FSREQ_OPEN] = serve_open,	 [FSREQ_MAP] = serve_map,     [FSREQ_SET_SIZE] = serve_set_size,
     [FSREQ_CLOSE] = serve_close, [FSREQ_DIRTY] = serve_dirty, [FSREQ_REMOVE] = serve_remove,
-    [FSREQ_SYNC] = serve_sync,
+    [FSREQ_SYNC] = serve_sync,   [FSREQ_CREATE] = serve_create,
 };
 
 /*
