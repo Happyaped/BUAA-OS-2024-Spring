@@ -251,8 +251,10 @@ void runcmd(char *s) {
 	char a[1024];
 	read(tem,a,1000);
 	printf("%s\n",a);
-		}
-
+	close(tem);
+	exit();
+	}
+	
 	int child = spawn(argv[0], argv);
 	close_all();
 	if (child >= 0) {
