@@ -118,15 +118,14 @@ int open_lookup(u_int envid, u_int fileid, struct Open **po) {
 }
 
 void serve_create(u_int envid, struct Fsreq_create *rq) {
-	    struct File *f;
-	        int r;
-		        if ((r = file_create(rq->req_path, &f)) < 0) {
-				            ipc_send(envid, r, 0, 0);
-					                return;
-							        }
-								    // touch 和 mkdir 的区别仅限于此，所以只需要控制这个值的传递就能实现两个函数
-								        f->f_type = rq->f_type;
-									    ipc_send(envid, 0, 0, 0);
+	struct File *f;
+	int r;
+	if ((r = file_create(rq->req_path, &f)) < 0) {
+	ipc_send(envid, r, 0, 0);
+	return;
+	       }
+	f->f_type = rq->f_type;
+	ipc_send(envid, 0, 0, 0);
 }
 
 /*
