@@ -192,7 +192,8 @@ int parsecmd(char **argv, int *rightpipe) {
 		    	exit();
 			}
 			runcmd(t);
-			argv[argc++] = t;
+			argv[argc] = t;
+			argc++;
 			break;
 		case '|':;
 			/*
@@ -246,6 +247,7 @@ void runcmd(char *s) {
 	}
 	argv[argc] = 0;
 	
+	//inside history command
 	if(strcmp(argv[0],"history") == 0){
 	int tem = open(".mosh_history",O_RDONLY);
 	char a[1024];
